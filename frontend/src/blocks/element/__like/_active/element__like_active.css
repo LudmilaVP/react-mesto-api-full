@@ -1,0 +1,6 @@
+.element__like_active {
+  background-image: url(../.././../../images/element_like_active.png);
+  object-fit: contain;
+  vertical-align: middle;
+  object-position: center;
+}

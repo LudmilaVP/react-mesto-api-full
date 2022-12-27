@@ -1,0 +1,27 @@
+.form__button {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #000000;
+    max-width: 358px;
+    width: 358px;
+    height: 50px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    margin-top: 216px;
+}
+
+.form__button {
+    opacity: .85;
+}
+
+@media screen and (max-width: 475px) {
+    .form__button {
+        width: 260px;
+        height: 46px;
+        margin-top: 173px;
+        font-size: 16px;
+        line-height: 19px;
+    }
+}
