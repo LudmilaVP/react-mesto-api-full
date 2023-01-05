@@ -4,7 +4,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenError = require('../errors/ForbiddenError');
 
 const getCards = (req, res, next) => {
-  Cards.find({}).populate('owners', 'likes')
+  Cards.find({})
     .then((cards) => res.send(cards))
     .catch(next);
 };

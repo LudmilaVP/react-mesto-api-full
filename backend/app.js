@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const routes = require('./routes');
@@ -15,7 +16,8 @@ const {
   createUserValidator,
   loginValidator,
 } = require('./middlewares/validators');
-const { createUser, login } = require('./controllers/users');
+const { createUser, login, signout } = require('./controllers/users');
+const cors = require('./middlewares/cors');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -30,6 +32,7 @@ app.post('/signin', loginValidator, login);
 app.post('/signup', createUserValidator, createUser);
 
 app.use(auth);
+app.get('/signout', signout);
 app.use(routes);
 app.use(errorLogger);
 

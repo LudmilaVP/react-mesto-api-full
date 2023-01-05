@@ -153,7 +153,6 @@ function App() {
   }
 
   function handleLogout() {
-    localStorage.removeItem('token');
     setUserEmail('');
     setLoggedIn(false);
     history.push('/');
@@ -163,7 +162,7 @@ function App() {
     auth.register(email, password)
       .then(result => {
         if (result) {
-          setUserEmail(result.data.email);
+          setUserEmail(result.email);
           setInfoTooltipOpen({ opened: true, success: true })
           setLoggedIn(true);
           history.push('/');
@@ -177,13 +176,10 @@ function App() {
 
   function handleSigninSubmit(email, password) {
     auth.authorization(email, password)
-      .then(data => {
-        if (data.token) {
-          localStorage.setItem('token', data.token);
+      .then((res) => {
           setUserEmail(email);
           setLoggedIn(true);
           history.push('/');
-        }
       })
       .catch((err) => {
         console.log(err);
