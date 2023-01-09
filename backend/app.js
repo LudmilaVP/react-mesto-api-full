@@ -16,7 +16,6 @@ const handleError = require('./middlewares/handleError');
 const {
   createUserValidator,
   loginValidator,
-} = require('./middlewares/validators');
 const { createUser, login, signout } = require('./controllers/users');
 const { corsConfig } = require('./middlewares/cors');
 
