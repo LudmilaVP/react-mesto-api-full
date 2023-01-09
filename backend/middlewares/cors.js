@@ -1,6 +1,6 @@
 const allowedCors = [
-  'https://dacorm.nomoredomains.icu',
-  'http://dacorm.nomoredomains.icu',
+  'https://domainname.plv.nomoredomains.club',
+  'https://api.domainname.plv.nomoredomains.club',
   'https://localhost:3000',
   'http://localhost:3000',
 ];
