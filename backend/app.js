@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const { errors } = require('celebrate');
 const routes = require('./routes');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -17,12 +18,12 @@ const {
   loginValidator,
 } = require('./middlewares/validators');
 const { createUser, login, signout } = require('./controllers/users');
-const cors = require('./middlewares/cors');
+const { corsConfig } = require('./middlewares/cors');
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors);
+app.use('*', cors(corsConfig));
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');

@@ -3,7 +3,7 @@ import Card from "./Card.js";
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick, onCardLike, onCardDelete, cards }) {
-  const profileContext = useContext(CurrentUserContext);
+  const profileContext = React.useContext(CurrentUserContext);
   const { name, avatar, about } = profileContext;
 
   return (
