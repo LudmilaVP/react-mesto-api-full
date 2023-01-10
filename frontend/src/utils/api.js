@@ -13,6 +13,7 @@ class Api {
   //Загрузка информации о пользователе с сервера
   getUserProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
+      credentials: 'include',
       method: "GET",
       headers: this._headers,
     }).then(this._getResponse);
@@ -20,6 +21,7 @@ class Api {
   //Загрузка карточек с сервера
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
+      credentials: 'include',
       method: "GET",
       headers: this._headers,
     }).then(this._getResponse);
@@ -27,6 +29,7 @@ class Api {
   //Редактирование профиля
   setUserProfile(data) {
     return fetch(`${this._baseUrl}/users/me`, {
+      credentials: 'include',
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -38,6 +41,7 @@ class Api {
   //Добавление новой карточки
   addNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
+      credentials: 'include',
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
@@ -49,6 +53,7 @@ class Api {
   //Удаление карточки
   removeCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
+      credentials: 'include',
       method: "DELETE",
       headers: this._headers,
     }).then(this._getResponse);
@@ -56,6 +61,7 @@ class Api {
   //Постановка и снятие лайка
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+      credentials: 'include',
         method: isLiked ? "DELETE" : "PUT",
         headers: this._headers
       }).then(this._getResponse)
@@ -64,6 +70,7 @@ class Api {
   //Обновление аватара пользователя
   updateUserAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
+      credentials: 'include',
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({

@@ -58,18 +58,6 @@ function App() {
     };
   }, []);
 
-  React.useEffect(() => {
-    auth.tokenCheck(localStorage.getItem('token'))
-      .then((data) => {
-        if (data) {
-          setUserEmail(data.data.email);
-          setLoggedIn(true);
-          history.push('/');
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [])
-
   //вспомогательные функции
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);

@@ -18,20 +18,10 @@ export const register = (email, password) => {
 
 export const authorization = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
+    credentials: 'include',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password, email })
-  })
-    .then(res => _getResponse(res))
-}
-
-export const tokenCheck = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    credentials: 'include',
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json",
-    }
   })
     .then(res => _getResponse(res))
 }

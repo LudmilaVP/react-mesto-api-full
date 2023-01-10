@@ -29,7 +29,7 @@ app.post('/signin', loginValidator, login);
 app.post('/signup', createUserValidator, createUser);
 
 app.use(auth);
-app.get('/signout', signout);
+app.get('/onlogout', signout);
 app.use(routes);
 app.use(errorLogger);
 

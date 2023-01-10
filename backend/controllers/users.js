@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
@@ -16,7 +17,7 @@ const login = (req, res, next) => {
       User.findOne({ email })
         .then((user) => res.cookie('jwt', token, {
           httpOnly: true,
-          sameSite: true,
+          sameSite: false,
           maxAge: (3600 * 24 * 7),
         })
           .send(user));
