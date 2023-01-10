@@ -19,7 +19,7 @@ const cors = require('./middlewares/cors');
 app.use(express.json());
 app.use(cookieParser());
 app.use(requestLogger);
-app.use(cors);
+app.use(cors(cors));
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
