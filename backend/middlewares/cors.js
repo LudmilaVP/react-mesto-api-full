@@ -2,6 +2,7 @@ const allowedCors = [
   'https://domainname.plv.nomoredomains.club',
   'http://domainname.plv.nomoredomains.club',
   'http://api.domainname.plv.nomoredomains.club',
+  'http://api.domainname.plv.nomoredomains.club/signup',
   'https://api.domainname.plv.nomoredomains.club',
   'https://localhost:3000',
   'http://localhost:3000',
