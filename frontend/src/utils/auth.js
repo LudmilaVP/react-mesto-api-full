@@ -11,7 +11,10 @@ export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Origin': 'https://domainname.plv.nomoredomains.club',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json' },
     body: JSON.stringify({ password, email })
   })
     .then(res => _getResponse(res))
@@ -21,7 +24,11 @@ export const authorization = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 
+      'Origin': 'https://domainname.plv.nomoredomains.club',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+     },
     body: JSON.stringify({ password, email })
   })
     .then(res => _getResponse(res))
@@ -32,6 +39,8 @@ export const logout = () => {
     method: 'POST',
     credentials: 'include',
     headers: {
+      'Origin': 'https://domainname.plv.nomoredomains.club',
+      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
   })
