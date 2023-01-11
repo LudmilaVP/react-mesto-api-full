@@ -10,7 +10,6 @@ function _getResponse(res) {
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
-    credentials: 'include',
     headers: { 
       'Origin': 'https://domainname.plv.nomoredomains.club',
       'Accept': 'application/json',
