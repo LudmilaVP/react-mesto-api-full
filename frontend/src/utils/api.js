@@ -27,26 +27,26 @@ class Api {
     }).then(this._getResponse);
   }
   //Редактирование профиля
-  setUserProfile(data) {
+  setUserProfile({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        about: data.about,
+        name: name,
+        about: about,
       }),
     }).then(this._getResponse);
   }
   //Добавление новой карточки
-  addNewCard(data) {
+  addNewCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link,
+        name: name,
+        link: link,
       }),
     }).then(this._getResponse);
   }
@@ -68,13 +68,13 @@ class Api {
   }
 
   //Обновление аватара пользователя
-  updateUserAvatar(data) {
+  updateUserAvatar({avatar}) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.avatar,
+        avatar: avatar,
       }),
     }).then(this._getResponse);
   }

@@ -31,15 +31,26 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
-    if (loggedIn) {
-      Promise.all([api.getInitialCards(), api.getUserProfile()])
-        .then(([initialCards, currentUserData]) => {
-          setCards(initialCards);
-          setCurrentUser(currentUserData);
+    api.getUserProfile()
+        .then((res) => {
+          setCurrentUser(res)
         })
-        .catch(err => console.log(err))
-    }
-  }, [loggedIn])
+        .catch((err) => {
+            console.log ('Ошибка' + err);
+          })
+}, [loggedIn])
+
+//Загрузка карточек первоначальная
+React.useEffect(() => {
+    if (loggedIn){
+    api.getInitialCards()
+        .then(res => {
+            setCards(res)
+        })
+        .catch((err) => {
+            console.log ('Ошибка' + err);
+        })
+}}, [loggedIn])
 
   React.useEffect(() => {
     function handleEscClose(e) {
@@ -162,12 +173,26 @@ function App() {
       })
   }
 
+  const tokenCheck = () => {
+    auth.getContent()
+      .then((res) => {
+        setLoggedIn(true);
+        setUserEmail(res.email);
+        history.push('/');
+      })
+      .catch((err) => console.log(err));
+  }
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, [loggedIn]);
+
   function handleSigninSubmit(email, password) {
     auth.authorization(email, password)
       .then((res) => {
-          setUserEmail(email);
-          setLoggedIn(true);
-          history.push('/');
+        setUserEmail(email);
+        setLoggedIn(true);
+        history.push('/');
       })
       .catch((err) => {
         console.log(err);

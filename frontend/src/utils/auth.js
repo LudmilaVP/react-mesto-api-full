@@ -18,6 +18,17 @@ export const login = (email, password) => {
     .then(res => _getResponse(res))
 }
 
+export const getContent = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    credentials: 'include',
+    method: 'GET',
+    headers: {      
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => _getResponse(res))
+};
+
 export const authorization = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
