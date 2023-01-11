@@ -10,6 +10,7 @@ function _getResponse(res) {
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
+    credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password, email })
   })
@@ -18,8 +19,8 @@ export const register = (email, password) => {
 
 export const authorization = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
-    credentials: 'include',
     method: 'POST',
+    credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password, email })
   })
@@ -28,8 +29,8 @@ export const authorization = (email, password) => {
 
 export const logout = () => {
   return fetch(`${BASE_URL}/onlogout`, {
-    credentials: 'include',
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json'
     },

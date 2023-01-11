@@ -13,24 +13,24 @@ class Api {
   //Загрузка информации о пользователе с сервера
   getUserProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
-      credentials: 'include',
       method: "GET",
+      credentials: 'include',
       headers: this._headers,
     }).then(this._getResponse);
   }
   //Загрузка карточек с сервера
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
-      credentials: 'include',
       method: "GET",
+      credentials: 'include',
       headers: this._headers,
     }).then(this._getResponse);
   }
   //Редактирование профиля
   setUserProfile(data) {
     return fetch(`${this._baseUrl}/users/me`, {
-      credentials: 'include',
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -41,8 +41,8 @@ class Api {
   //Добавление новой карточки
   addNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
-      credentials: 'include',
       method: "POST",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -53,16 +53,16 @@ class Api {
   //Удаление карточки
   removeCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
-      credentials: 'include',
       method: "DELETE",
+      credentials: 'include',
       headers: this._headers,
     }).then(this._getResponse);
   }
   //Постановка и снятие лайка
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._baseUrl}/cards/likes/${id}`, {
-      credentials: 'include',
         method: isLiked ? "DELETE" : "PUT",
+        credentials: 'include',
         headers: this._headers
       }).then(this._getResponse)
   }
@@ -70,8 +70,8 @@ class Api {
   //Обновление аватара пользователя
   updateUserAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
-      credentials: 'include',
       method: "PATCH",
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
