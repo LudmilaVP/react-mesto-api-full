@@ -7,12 +7,11 @@ function _getResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export const register = (email, password) => {
+export const login = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
+    credentials: 'include',
     headers: { 
-      'Origin': 'https://domainname.plv.nomoredomains.club',
-      'Accept': 'application/json',
       'Content-Type': 'application/json' },
     body: JSON.stringify({ password, email })
   })
@@ -24,8 +23,6 @@ export const authorization = (email, password) => {
     method: 'POST',
     credentials: 'include',
     headers: { 
-      'Origin': 'https://domainname.plv.nomoredomains.club',
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
      },
     body: JSON.stringify({ password, email })
@@ -38,8 +35,6 @@ export const logout = () => {
     method: 'POST',
     credentials: 'include',
     headers: {
-      'Origin': 'https://domainname.plv.nomoredomains.club',
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
   })

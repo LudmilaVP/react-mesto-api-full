@@ -147,7 +147,7 @@ function App() {
   }
 
   function handleSignupSubmit(email, password) {
-    auth.register(email, password)
+    auth.login(email, password)
       .then(result => {
         if (result) {
           setUserEmail(result.email);
