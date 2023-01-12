@@ -14,7 +14,7 @@ const DATABASE_URL = 'mongodb://127.0.0.1:27017/mestodb';
 const auth = require('./middlewares/auth');
 const handleError = require('./middlewares/handleError');
 const { createUserValidator, loginValidator } = require('./middlewares/validators');
-const { createUser, login, signout } = require('./controllers/users');
+const { createUser, login, logout } = require('./controllers/users');
 const corsOption = require('./middlewares/cors');
 
 app.use(express.json());
@@ -30,10 +30,9 @@ app.post('/signin', loginValidator, login);
 app.post('/signup', createUserValidator, createUser);
 
 app.use(auth);
-app.get('/onlogout', signout);
 app.use(routes);
 app.use(errorLogger);
-
+app.post('/onlogout', logout);
 app.use(errors());
 app.use(handleError);
 

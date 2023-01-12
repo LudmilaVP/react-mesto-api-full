@@ -71,22 +71,29 @@ React.useEffect(() => {
 
   //вспомогательные функции
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api
-      .changeLikeCardStatus(card._id, isLiked)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      })
-      .catch(err => console.log(err));
-  }
+    const isLiked = card.likeUser.some(i => i === currentUser._id);
+    if (!isLiked){
+    api.likePut(card.cardId)
+        .then((newCard) => {
+            setCards((state) => state.map(
+                (c) => c._id === card.cardId ? newCard : c))})
+        .catch((err) => {
+            console.log (err);
+        })} else {
+    api.likeUnPut(card.cardId)
+        .then((newCard) => {
+            setCards((state) => state.map(
+            (c) => c._id === card.cardId ? newCard : c))})
+        .catch((err) => {
+            console.log (err);
+         })}
+} 
 
   function handleCardDelete(card) {
     api
-      .removeCard(card._id)
-      .then(() => {
-        setCards(cards.filter(item => item._id !== card._id));
+      .removeCard(card.cardId)
+      .then((res) => {
+        setCards(cards => cards.filter(item => item._id !== card.cardId));
       })
       .catch(err => console.log(err));
   }
@@ -151,11 +158,17 @@ React.useEffect(() => {
     setInfoTooltipOpen({ opened: false, success: false });
   }
 
-  function handleLogout() {
-    setUserEmail('');
-    setLoggedIn(false);
-    history.push('/');
-  }
+  const handleLogout = () => {
+    auth.logout()
+        .then(() =>  {            
+            setLoggedIn(false);
+            setUserEmail("");
+            history.push ('/');                
+        })             
+        .catch((err) => {
+            console.log(err)
+        })
+}
 
   function handleSignupSubmit(email, password) {
     auth.login(email, password)
@@ -206,7 +219,6 @@ React.useEffect(() => {
         <Header
           userEmail={userEmail}
           onLogout={handleLogout}
-          loggedIn={loggedIn}
         />
         <Switch>
           <ProtectedRoute exact path='/'

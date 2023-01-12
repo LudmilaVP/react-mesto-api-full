@@ -30,7 +30,9 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
-const signout = (req, res) => res.clearCookie('jwt', { httpOnly: true, sameSite: true }).send({ message: 'Signed Out' });
+const logout = (req, res) => {
+  res.clearCookie('jwt').send({ message: 'Exit' });
+};
 
 const getUsers = (req, res, next) => {
   User.find({})
@@ -135,7 +137,7 @@ const getCurrentUser = (req, res, next) => {
 
 module.exports = {
   login,
-  signout,
+  logout,
   getUsers,
   getUser,
   createUser,
