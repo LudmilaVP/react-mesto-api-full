@@ -7,6 +7,7 @@ import Header from "./Header.js";
 import Footer from "./Footer.js";
 import Main from './Main.js';
 import ImagePopup from "./ImagePopup.js";
+import PopupWithForm from './PopupWithForm.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import EditProfilePopup from './EditProfilePopup.js';
@@ -52,22 +53,12 @@ React.useEffect(() => {
         })
 }}, [loggedIn])
 
-  React.useEffect(() => {
-    function handleEscClose(e) {
-      e.key === 'Escape' && closeAllPopups();
-    }
-    function handleOverlayClose(e) {
-      e.target.classList.contains('popup_opened') && closeAllPopups();
-    }
-    window.addEventListener('keydown', handleEscClose);
-    window.addEventListener('click', handleOverlayClose);
-
-    return () => {
-      window.removeEventListener('click', handleOverlayClose);
-      window.removeEventListener('keydown', handleEscClose);
-
-    };
-  }, []);
+  
+const handleEscClose = (e) => {
+  if (e.key === "Escape") {
+    closeAllPopups();
+  }
+};
 
   //вспомогательные функции
   function handleCardLike(card) {
@@ -215,7 +206,7 @@ React.useEffect(() => {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
+      <div className="page" onKeyDown={handleEscClose}>
         <Header
           userEmail={userEmail}
           onLogout={handleLogout}
@@ -272,6 +263,7 @@ React.useEffect(() => {
           statusImage={isInfoTooltipOpen.success ? successImage : failImage}
           title={isInfoTooltipOpen.success ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз'}
         />
+        <PopupWithForm name='confirm' title='Вы уверены?' onClose={closeAllPopups} buttonName = 'да' />
       </div>
     </CurrentUserContext.Provider>
   );
