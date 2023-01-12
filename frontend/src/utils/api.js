@@ -1,7 +1,7 @@
 class Api {
-  constructor(options) {
-    this._baseUrl = options.baseUrl;
-    this._headers = options.headers;
+  constructor({baseUrl, headers}) {
+    this.baseUrl = baseUrl;
+    this.headers = headers;
   }
 
   _getResponse(res) {
@@ -12,26 +12,27 @@ class Api {
   }
   //Загрузка информации о пользователе с сервера
   getUserProfile() {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: "GET",
       credentials: 'include',
-      headers: this._headers,
-    }).then(this._getResponse);
+      headers: this.headers,
+    })
+    .then(this._getResponse);
   }
   //Загрузка карточек с сервера
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "GET",
       credentials: 'include',
-      headers: this._headers,
+      headers: this.headers,
     }).then(this._getResponse);
   }
   //Редактирование профиля
   setUserProfile({ name, about }) {
-    return fetch(`${this._baseUrl}/users/me`, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       credentials: 'include',
-      headers: this._headers,
+      headers: this.headers,
       body: JSON.stringify({
         name: name,
         about: about,
@@ -40,10 +41,10 @@ class Api {
   }
   //Добавление новой карточки
   addNewCard({ name, link }) {
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       credentials: 'include',
-      headers: this._headers,
+      headers: this.headers,
       body: JSON.stringify({
         name: name,
         link: link,
@@ -52,27 +53,27 @@ class Api {
   }
   //Удаление карточки
   removeCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
+    return fetch(`${this.baseUrl}/cards/${id}`, {
       method: "DELETE",
       credentials: 'include',
-      headers: this._headers,
+      headers: this.headers,
     }).then(this._getResponse);
   }
   //Постановка и снятие лайка
   changeLikeCardStatus(id, isLiked) {
-    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+    return fetch(`${this.baseUrl}/cards/likes/${id}`, {
         method: isLiked ? "DELETE" : "PUT",
         credentials: 'include',
-        headers: this._headers
+        headers: this.headers
       }).then(this._getResponse)
   }
 
   //Обновление аватара пользователя
   updateUserAvatar({avatar}) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       credentials: 'include',
-      headers: this._headers,
+      headers: this.headers,
       body: JSON.stringify({
         avatar: avatar,
       }),

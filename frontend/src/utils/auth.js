@@ -1,6 +1,6 @@
 const BASE_URL = 'https://api.domainname.plv.nomoredomains.club';
 
-function _getResponse(res) {
+function getResponse(res) {
   if (res.ok) {
     return res.json();
   }
@@ -13,9 +13,9 @@ export const login = (email, password) => {
     credentials: 'include',
     headers: { 
       'Content-Type': 'application/json' },
-    body: JSON.stringify({ password, email })
+    body: JSON.stringify({ email, password })
   })
-    .then(res => _getResponse(res))
+    .then(res => getResponse(res))
 }
 
 export const getContent = () => {
@@ -26,7 +26,7 @@ export const getContent = () => {
       'Content-Type': 'application/json'
     }
   })
-  .then(res => _getResponse(res))
+  .then(res => getResponse(res))
 };
 
 export const authorization = (email, password) => {
@@ -36,9 +36,9 @@ export const authorization = (email, password) => {
     headers: { 
       'Content-Type': 'application/json'
      },
-    body: JSON.stringify({ password, email })
+    body: JSON.stringify({ email, password })
   })
-    .then(res => _getResponse(res))
+    .then(res => getResponse(res))
 }
 
 export const logout = () => {
@@ -49,5 +49,5 @@ export const logout = () => {
       'Content-Type': 'application/json'
     },
   })
-    .then(res => _getResponse(res));
+    .then(res => getResponse(res));
 };
