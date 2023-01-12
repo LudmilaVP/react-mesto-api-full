@@ -20,8 +20,8 @@ export const login = (email, password) => {
 
 export const getContent = () => {
   return fetch(`${BASE_URL}/users/me`, {
-    credentials: 'include',
     method: 'GET',
+    credentials: 'include',
     headers: {      
       'Content-Type': 'application/json'
     }
