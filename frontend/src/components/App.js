@@ -2,15 +2,15 @@ import React from "react";
 import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/api.js';
-import * as auth from '../utils/auth';
+import * as auth from '../utils/auth.js';
 import Header from "./Header.js";
 import Footer from "./Footer.js";
-import Main from './Main';
+import Main from './Main.js';
 import ImagePopup from "./ImagePopup.js";
 import AddPlacePopup from './AddPlacePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import EditProfilePopup from './EditProfilePopup.js';
-import InfoTooltip from './InfoTooltip';
+import InfoTooltip from './InfoTooltip.js';
 import Login from './Login.js';
 import Register from './Register.js';
 import ProtectedRoute from './ProtectedRoute.js';
@@ -36,7 +36,7 @@ function App() {
           setCurrentUser(res)
         })
         .catch((err) => {
-            console.log ('Ошибка' + err);
+            console.log (err);
           })
 }, [loggedIn])
 
@@ -48,7 +48,7 @@ React.useEffect(() => {
             setCards(res)
         })
         .catch((err) => {
-            console.log ('Ошибка' + err);
+            console.log (err);
         })
 }}, [loggedIn])
 
@@ -106,8 +106,8 @@ React.useEffect(() => {
   function handleUpdateUserAvatar({ avatar }) {
     api
       .updateUserAvatar({ avatar })
-      .then((currentUserData) => {
-        setCurrentUser(currentUserData);
+      .then((res) => {
+        setCurrentUser(res);
         closeAllPopups();
       })
       .catch((err) => {
@@ -220,20 +220,20 @@ React.useEffect(() => {
             onCardDelete={handleCardDelete}
             cards={cards}
           />
-          <Route path="/sign-in">
+          <Route path="/signin">
             <Login
               onSignin={handleSigninSubmit}
             />
           </Route>
 
-          <Route path="/sign-up">
+          <Route path="/signup">
             <Register
               onSignup={handleSignupSubmit}
             />
           </Route>
 
           <Route exact path="*">
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
           </Route>
         </Switch>
         <Footer />
