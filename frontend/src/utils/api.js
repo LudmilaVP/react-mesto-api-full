@@ -60,13 +60,23 @@ class Api {
     }).then(this._getResponse);
   }
   //Постановка и снятие лайка
-  changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: isLiked ? "PUT" : "DELETE",
-      headers: this._headers,
-      credentials: "include",
-    }).then(this._getResponse);
-  }
+  likePut(cardId) {
+    return fetch (`${this.url}/cards/${cardId}/likes`,{
+        credentials: 'include',
+        method: 'PUT',
+        headers: this.headers,
+    })
+    .then(this._checkResponse)
+};
+
+likeUnPut(cardId) {
+    return fetch (`${this.url}/cards/${cardId}/likes`,{
+        credentials: 'include',
+        method: 'DELETE',
+        headers: this.headers,
+    })
+    .then(this._checkResponse)
+};
 
   //Обновление аватара пользователя
   updateUserAvatar({avatar}) {
