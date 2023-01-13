@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/api.js';
-import auth from '../utils/auth.js';
+import * as auth from '../utils/auth.js';
 import Header from "./Header.js";
 import Footer from "./Footer.js";
 import Main from './Main.js';
@@ -42,7 +42,7 @@ function App() {
   }, [loggedIn])
 
 const tokenCheck = () => {
-  api.getUserProfile()
+  api.getContent()
     .then((res) => {
       setLoggedIn(true);
       setUserEmail(res.email);
