@@ -30,17 +30,31 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
-  React.useEffect(() => {
-    api.getUserProfile()
-        .then((res) => {
-          setCurrentUser(res)
-        })
-        .catch((err) => {
-            console.log (err);
-          })
-}, [loggedIn])
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
 
-React.useEffect(() => {
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function handleClickCard(card) {
+    setSelectedCard(card);
+  }
+
+  function closeAllPopups() {
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setSelectedCard(null);
+    setInfoTooltipOpen({ opened: false, success: false });
+  }
+
+  React.useEffect(() => {
     if (loggedIn){
     api.getInitialCards()
         .then((res) => {
@@ -50,6 +64,16 @@ React.useEffect(() => {
             console.log (err);
         })
 }}, [loggedIn])
+
+  React.useEffect(() => {
+    api.getUserProfile()
+        .then((res) => {
+          setCurrentUser(res)
+        })
+        .catch((err) => {
+            console.log (err);
+          })
+}, [loggedIn])
 
 function handleCardLike(card) {
   const isLiked = card.likeUser.some(i => i === currentUser._id);
@@ -116,29 +140,6 @@ function handleCardLike(card) {
       });
   }
 
-  function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true);
-  }
-
-  function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true);
-  }
-
-  function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true);
-  }
-
-  function handleClickCard(card) {
-    setSelectedCard(card);
-  }
-
-  function closeAllPopups() {
-    setIsAddPlacePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-    setIsEditProfilePopupOpen(false);
-    setSelectedCard(null);
-    setInfoTooltipOpen({ opened: false, success: false });
-  }
   const tokenCheck = () => {
     auth.getContent()
       .then((res) => {
@@ -148,7 +149,7 @@ function handleCardLike(card) {
       })
       .catch((err) => console.log(err));
   }
-  
+
   function handleSignupSubmit(email, password) {
     auth.login(email, password)
       .then(result => {
@@ -170,7 +171,7 @@ function handleCardLike(card) {
       .then((res) => {
         setUserEmail(email);
         setLoggedIn(true);
-        history.push('/');
+        history.push('/signin');
       })
       .catch((err) => {
         console.log(err);
@@ -181,6 +182,7 @@ function handleCardLike(card) {
   React.useEffect(() => {
     tokenCheck();
   }, [loggedIn]);
+  
   function handleLogout() {
     auth.logout();
     history.push("/signin");
