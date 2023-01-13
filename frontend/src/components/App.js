@@ -55,7 +55,7 @@ React.useEffect(() => {
 
   //вспомогательные функции
   function handleCardLike(card) {
-    const isLiked = card.likeUser.some(i => i === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     if (!isLiked){
     api.likePut(card.cardId)
         .then((newCard) => {
