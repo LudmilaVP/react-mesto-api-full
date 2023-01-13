@@ -7,7 +7,6 @@ import Header from "./Header.js";
 import Footer from "./Footer.js";
 import Main from './Main.js';
 import ImagePopup from "./ImagePopup.js";
-import PopupWithForm from './PopupWithForm.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import EditProfilePopup from './EditProfilePopup.js';
@@ -248,7 +247,6 @@ React.useEffect(() => {
           statusImage={isInfoTooltipOpen.success ? successImage : failImage}
           title={isInfoTooltipOpen.success ? 'Вы успешно зарегистрировались!' : 'Что-то пошло не так! Попробуйте ещё раз'}
         />
-        <PopupWithForm name='confirm' title='Вы уверены?' onClose={closeAllPopups} buttonName = 'да' />
       </div>
     </CurrentUserContext.Provider>
   );

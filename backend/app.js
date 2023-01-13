@@ -32,7 +32,7 @@ app.post('/signup', createUserValidator, createUser);
 app.use(auth);
 app.use(routes);
 app.use(errorLogger);
-app.post('/onlogout', logout);
+app.get('/onlogout', logout);
 app.use(errors());
 app.use(handleError);
 
