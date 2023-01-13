@@ -30,11 +30,16 @@ function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick, onCardLike
       <section className="elements">
         {cards.map((item) => {
           return <Card
-            key={item._id}
-            card={item}
-            onCardClick={onCardClick}
-            onCardLike={onCardLike}
-            onCardDelete={onCardDelete} />;
+          key={item._id}
+          cardId={item._id}
+          name={item.name}
+          link={item.link}
+          likeUser={item.likes}
+          like={item.likes.length}
+          ownerId={item.owner}
+          onCardClick={onCardClick}
+          onCardLike={onCardLike}
+          onCardDelete={onCardDelete} />;
         })}
       </section>
     </main>
