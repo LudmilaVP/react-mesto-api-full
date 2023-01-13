@@ -15,7 +15,7 @@ class Auth {
   }
 
   authorization = (email, password) => {
-    return fetch(`${BASE_URL}/signin`, {
+    return fetch(`${this._url}/signin`, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
@@ -28,7 +28,7 @@ class Auth {
   }
 
   login = (email, password) => {
-    return fetch(`${BASE_URL}/signup`, {
+    return fetch(`${this._url}/signup`, {
       method: 'POST',
       credentials: 'include',
       headers: this._headers,
@@ -41,7 +41,7 @@ class Auth {
   }
 
   logout = () => {
-    return fetch(`${BASE_URL}/onlogout`, {
+    return fetch(`${this._url}/onlogout`, {
       method: "GET",
       credentials: 'include',
       headers: this._headers,
@@ -50,7 +50,7 @@ class Auth {
   };
 
   getContent = () => {
-    return fetch(`${BASE_URL}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: 'GET',
       credentials: 'include',
       headers: this._headers,
