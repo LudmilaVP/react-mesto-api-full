@@ -32,6 +32,7 @@ function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick, onCardLike
           return <Card
             key={item._id}
             card={item}
+            cardId={item._id}
             onCardClick={onCardClick}
             onCardLike={onCardLike}
             onCardDelete={onCardDelete} />;
