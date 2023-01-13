@@ -14,7 +14,7 @@ class Auth {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  authorization = (email, password) => {
+  authorization ({ password, email }) {
     return fetch(`${this._url}/signin`, {
       method: 'POST',
       credentials: 'include',
@@ -27,7 +27,7 @@ class Auth {
       .then(this._getResponse)
   }
 
-  login = (email, password) => {
+  login ({ password, email }) {
     return fetch(`${this._url}/signup`, {
       method: 'POST',
       credentials: 'include',
@@ -40,7 +40,7 @@ class Auth {
       .then(this._getResponse)
   }
 
-  logout = () => {
+  logout () {
     return fetch(`${this._url}/onlogout`, {
       method: "GET",
       credentials: 'include',
@@ -48,15 +48,6 @@ class Auth {
     })
       .then(this._getResponse);
   };
-
-  getContent = () => {
-    return fetch(`${this._url}/users/me`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: this._headers,
-    })
-      .then(this._getResponse)
-  }
 }
 
 const auth = new Auth(BASE_URL);
