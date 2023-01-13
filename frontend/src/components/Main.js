@@ -32,7 +32,7 @@ function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick, onCardLike
           return <Card
           key={item._id}
           cardId={item._id}
-          ownerId={item.ownerId}
+          ownerId={item.owner}
           name={item.name}
           link={item.link}
           likeUser={item.likes}
