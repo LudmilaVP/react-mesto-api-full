@@ -28,11 +28,10 @@ app.get('/crash-test', () => {
 });
 app.post('/signin', loginValidator, login);
 app.post('/signup', createUserValidator, createUser);
-
+app.get('/onlogout', logout);
 app.use(auth);
 app.use(routes);
 app.use(errorLogger);
-app.get('/onlogout', logout);
 app.use(errors());
 app.use(handleError);
 
