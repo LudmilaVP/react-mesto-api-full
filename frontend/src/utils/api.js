@@ -52,16 +52,16 @@ class Api {
     }).then(this._getResponse);
   }
   //Удаление карточки
-  removeCard(card) {
-    return fetch(`${this.baseUrl}/cards/${card._id}`, {
+  removeCard(idCard) {
+    return fetch(`${this.baseUrl}/cards/${idCard}`, {
       method: "DELETE",
       credentials: 'include',
       headers: this.headers,
     }).then(this._getResponse);
   }
   //Постановка и снятие лайка
-  changeLikeCardStatus(card, isLiked) {
-    return fetch(`${this._url}/cards/${card._id}/likes`, {
+  changeLikeCardStatus(idCard, isLiked) {
+    return fetch(`${this._url}/cards/${idCard}/likes`, {
       method: isLiked ? "PUT" : "DELETE",
       headers: this._headers,
       credentials: "include",
