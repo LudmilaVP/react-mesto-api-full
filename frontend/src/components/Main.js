@@ -42,8 +42,6 @@ function Main({ onEditAvatar, onAddPlace, onEditProfile, onCardClick, onCardLike
           return <Card
           key={item._id}
           cardId={item._id}
-          name={item.name}
-          link={item.link}
           onCardClick={onCardClick}
           onCardLike={onCardLike}
           onCardDelete={onCardDelete} />;
