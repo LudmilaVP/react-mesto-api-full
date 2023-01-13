@@ -53,13 +53,6 @@ React.useEffect(() => {
         })
 }}, [loggedIn])
 
-  
-const handleEscClose = (e) => {
-  if (e.key === "Escape") {
-    closeAllPopups();
-  }
-};
-
   //вспомогательные функции
   function handleCardLike(card) {
     const isLiked = card.likeUser.some(i => i === currentUser._id);
@@ -206,10 +199,11 @@ const handleEscClose = (e) => {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page" onKeyDown={handleEscClose}>
+      <div className="page">
         <Header
           userEmail={userEmail}
           onLogout={handleLogout}
+          loggedIn={loggedIn}
         />
         <Switch>
           <ProtectedRoute exact path='/'
