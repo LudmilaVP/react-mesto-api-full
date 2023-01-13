@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const routes = require('./routes');
+const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -30,7 +30,7 @@ app.post('/signin', loginValidator, login);
 app.get('/onlogout', logout);
 app.post('/signup', createUserValidator, createUser);
 app.use(auth);
-app.use(routes);
+app.use(router);
 app.use(errorLogger);
 app.use(errors());
 app.use(handleError);
