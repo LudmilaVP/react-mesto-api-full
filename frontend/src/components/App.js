@@ -53,33 +53,29 @@ React.useEffect(() => {
         })
 }}, [loggedIn])
 
-  //вспомогательные функции
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
-    if (!isLiked){
-    api.likePut(card.cardId)
-        .then((newCard) => {
-            setCards((state) => state.map(
-                (c) => c._id === card.cardId ? newCard : c))})
-        .catch((err) => {
-            console.log (err);
-        })} else {
-    api.likeUnPut(card.cardId)
-        .then((newCard) => {
-            setCards((state) => state.map(
-            (c) => c._id === card.cardId ? newCard : c))})
-        .catch((err) => {
-            console.log (err);
-         })}
-} 
+    api
+      .changeLikeCardStatus(card, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   function handleCardDelete(card) {
     api
-      .removeCard(card.cardId)
-      .then((res) => {
-        setCards(cards => cards.filter(item => item._id !== card.cardId));
+      .removeCard(card)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
       })
-      .catch(err => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleUpdateUserProfile({ name, about }) {
@@ -142,17 +138,12 @@ React.useEffect(() => {
     setInfoTooltipOpen({ opened: false, success: false });
   }
 
-  const handleLogout = () => {
-    auth.logout()
-        .then(() =>  {            
-            setLoggedIn(false);
-            setUserEmail("");
-            history.push ('/');                
-        })             
-        .catch((err) => {
-            console.log(err)
-        })
-}
+  function handleLogout() {
+    auth.logout();
+    history.push("/sign-in");
+    setLoggedIn(false);
+    setUserEmail("");
+  }
 
   function handleSignupSubmit(email, password) {
     auth.login(email, password)

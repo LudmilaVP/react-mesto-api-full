@@ -52,31 +52,21 @@ class Api {
     }).then(this._getResponse);
   }
   //Удаление карточки
-  removeCard(cardId) {
-    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+  removeCard(card) {
+    return fetch(`${this.baseUrl}/cards/${card._id}`, {
       method: "DELETE",
       credentials: 'include',
       headers: this.headers,
     }).then(this._getResponse);
   }
   //Постановка и снятие лайка
-  likePut(cardId) {
-    return fetch (`${this.baseUrl}/cards/${cardId}/likes`,{
-        credentials: 'include',
-        method: 'PUT',
-        headers: this.headers,
-    })
-    .then(this._checkResponse)
-};
-
-likeUnPut(cardId) {
-    return fetch (`${this.baseUrl}/cards/${cardId}/likes`,{
-        credentials: 'include',
-        method: 'DELETE',
-        headers: this.headers,
-    })
-    .then(this._checkResponse)
-};
+  changeLikeCardStatus(card, isLiked) {
+    return fetch(`${this._url}/cards/${card._id}/likes`, {
+      method: isLiked ? "PUT" : "DELETE",
+      headers: this._headers,
+      credentials: "include",
+    }).then(this._getResponse);
+  }
 
   //Обновление аватара пользователя
   updateUserAvatar({avatar}) {
