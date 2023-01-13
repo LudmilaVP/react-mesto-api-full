@@ -1,53 +1,64 @@
 const BASE_URL = 'https://api.domainname.plv.nomoredomains.club';
 
-function getResponse(res) {
-  if (res.ok) {
-    return res.json();
+class Auth {
+  constructor(url) {
+    this._url = url;
+    this._headers = {
+      "Content-Type": "application/json",
+    };
   }
-  return Promise.reject(`Ошибка: ${res.status}`);
-}
-
-export const authorization = (email, password) => {
-  return fetch(`${BASE_URL}/signin`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 
-      'Content-Type': 'application/json'
-     },
-    body: JSON.stringify({ email, password })
-  })
-    .then(res => getResponse(res))
-}
-
-export const login = (email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 
-      'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  })
-    .then(res => getResponse(res))
-}
-
-export const logout = () => {
-  return fetch(`${BASE_URL}/onlogout`, {
-    method: "GET",
-    credentials: 'include',
-    headers: { 
-      'Content-Type': 'application/json'
-     },
-  })
-    .then(res => getResponse(res));
-};
-
-export const getContent = () => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: {      
-      'Content-Type': 'application/json'
+  _getResponse(res) {
+    if (res.ok) {
+      return res.json();
     }
-  })
-  .then(res => getResponse(res))
-};
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  authorization = (email, password) => {
+    return fetch(`${BASE_URL}/signin`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify({
+        password,
+        email,
+      }),
+    })
+      .then(this._getResponse)
+  }
+
+  login = (email, password) => {
+    return fetch(`${BASE_URL}/signup`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify({
+        password,
+        email,
+      }),
+    })
+      .then(this._getResponse)
+  }
+
+  logout = () => {
+    return fetch(`${BASE_URL}/onlogout`, {
+      method: "GET",
+      credentials: 'include',
+      headers: this._headers,
+    })
+      .then(this._getResponse);
+  };
+
+  getContent = () => {
+    return fetch(`${BASE_URL}/users/me`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: this._headers,
+    })
+      .then(this._getResponse)
+  }
+}
+
+const auth = new Auth(BASE_URL);
+
+export default auth;
