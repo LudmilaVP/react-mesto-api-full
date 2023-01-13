@@ -13,6 +13,7 @@ class Api {
   //Загрузка информации о пользователе с сервера
   getUserProfile() {
     return fetch(`${this.baseUrl}/users/me`, {
+      method: "GET",
       credentials: 'include',
       headers: this.headers,
     })
@@ -21,6 +22,7 @@ class Api {
   //Загрузка карточек с сервера
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
+      method: "GET",
       credentials: 'include',
       headers: this.headers,
     }).then(this._getResponse);

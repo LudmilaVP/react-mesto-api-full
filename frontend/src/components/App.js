@@ -30,6 +30,76 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
+  React.useEffect(() => {
+    if (loggedIn){
+    api.getInitialCards()
+        .then((res) => {
+            setCards(res)
+        })
+        .catch((err) => {
+            console.log (err);
+        })
+}}, [loggedIn])
+
+  React.useEffect(() => {
+    api.getUserProfile()
+        .then((res) => {
+          setCurrentUser(res)
+        })
+        .catch((err) => {
+            console.log (err);
+          })
+}, [loggedIn])
+
+const tokenCheck = () => {
+  auth.getContent()
+    .then((res) => {
+      setLoggedIn(true);
+      setUserEmail(res.email);
+      history.push('/');
+    })
+    .catch((err) => console.log(err));
+}
+React.useEffect(() => {
+  tokenCheck();
+}, [loggedIn]);
+
+function handleSignupSubmit(email, password) {
+  auth.login(email, password)
+    .then(result => {
+      if (result) {
+        setUserEmail(result.email);
+        setInfoTooltipOpen({ opened: true, success: true })
+        setLoggedIn(true);
+        history.push('/');
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      setInfoTooltipOpen({ opened: true, success: false })
+    })
+}
+
+function handleSigninSubmit(email, password) {
+  auth.authorization(email, password)
+    .then((res) => {
+      setUserEmail(email);
+      setLoggedIn(true);
+      history.push('/signin');
+    })
+    .catch((err) => {
+      console.log(err);
+      setInfoTooltipOpen({ opened: true, success: false })
+    })
+}
+
+function handleLogout() {
+  auth.logout();
+  history.push("/signin");
+  setLoggedIn(false);
+  setUserEmail("");
+}
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -54,29 +124,8 @@ function App() {
     setInfoTooltipOpen({ opened: false, success: false });
   }
 
-  React.useEffect(() => {
-    if (loggedIn){
-    api.getInitialCards()
-        .then((res) => {
-            setCards(res)
-        })
-        .catch((err) => {
-            console.log (err);
-        })
-}}, [loggedIn])
-
-  React.useEffect(() => {
-    api.getUserProfile()
-        .then((res) => {
-          setCurrentUser(res)
-        })
-        .catch((err) => {
-            console.log (err);
-          })
-}, [loggedIn])
-
 function handleCardLike(card) {
-  const isLiked = card.likeUser.some(i => i === currentUser._id);
+  const isLiked = card.likes.some(i => i === currentUser._id);
   if (!isLiked){
   api.likePut(card.cardId)
       .then((newCard) => {
@@ -138,56 +187,6 @@ function handleCardLike(card) {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  const tokenCheck = () => {
-    auth.getContent()
-      .then((res) => {
-        setLoggedIn(true);
-        setUserEmail(res.email);
-        history.push('/');
-      })
-      .catch((err) => console.log(err));
-  }
-
-  function handleSignupSubmit(email, password) {
-    auth.login(email, password)
-      .then(result => {
-        if (result) {
-          setUserEmail(result.email);
-          setInfoTooltipOpen({ opened: true, success: true })
-          setLoggedIn(true);
-          history.push('/');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setInfoTooltipOpen({ opened: true, success: false })
-      })
-  }
-
-  function handleSigninSubmit(email, password) {
-    auth.authorization(email, password)
-      .then((res) => {
-        setUserEmail(email);
-        setLoggedIn(true);
-        history.push('/signin');
-      })
-      .catch((err) => {
-        console.log(err);
-        setInfoTooltipOpen({ opened: true, success: false })
-      })
-  }
-
-  React.useEffect(() => {
-    tokenCheck();
-  }, [loggedIn]);
-  
-  function handleLogout() {
-    auth.logout();
-    history.push("/signin");
-    setLoggedIn(false);
-    setUserEmail("");
   }
 
   return (
