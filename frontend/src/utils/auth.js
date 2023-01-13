@@ -43,11 +43,9 @@ export const authorization = (email, password) => {
 
 export const logout = () => {
   return fetch(`${BASE_URL}/onlogout`, {
-    method: 'POST',
+    method: "GET",
+    headers: this._headers,
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json'
-    },
   })
     .then(res => getResponse(res));
 };
