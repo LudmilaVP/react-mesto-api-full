@@ -31,25 +31,15 @@ function App() {
   const history = useHistory();
 
   React.useEffect(() => {
-    if (loggedIn){
-    api.getInitialCards()
-        .then((res) => {
-            setCards(res)
+    if (loggedIn) {
+      Promise.all([api.getInitialCards(), api.getUserProfile()])
+        .then(([initialCards, currentUserData]) => {
+          setCards(initialCards);
+          setCurrentUser(currentUserData);
         })
-        .catch((err) => {
-            console.log (err);
-        })
-}}, [loggedIn])
-
-  React.useEffect(() => {
-    api.getUserProfile()
-        .then((res) => {
-          setCurrentUser(res)
-        })
-        .catch((err) => {
-            console.log (err);
-          })
-}, [loggedIn])
+        .catch(err => console.log(err))
+    }
+  }, [loggedIn])
 
 const tokenCheck = () => {
   auth.getContent()
@@ -124,27 +114,23 @@ function handleLogout() {
     setInfoTooltipOpen({ opened: false, success: false });
   }
 
-function handleCardLike(card) {
-  const isLiked = card.likes.some(i => i._id === currentUser._id);
-  if (!isLiked){
-  api.likePut(card._id)
-      .then((newCard) => {
-          setCards((state) => state.map(
-              (c) => c._id === card._id ? newCard : c))})
-      .catch((err) => {
-          console.log (err);
-      })} else {
-  api.likeUnPut(card._id)
-      .then((newCard) => {
-          setCards((state) => state.map(
-          (c) => c._id === card._id ? newCard : c))})
-      .catch((err) => {
-          console.log (err);
-       })}
-} 
-  const handleCardDelete = (card) => {
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
-      .removeCard(card._id)
+      .changeLikeCardStatus(card, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleCardDelete(card) {
+    api
+      .removeCard(card)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id));
       })

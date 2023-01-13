@@ -7,28 +7,6 @@ function getResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export const login = (email, password) => {
-  return fetch(`${BASE_URL}/signup`, {
-    method: 'POST',
-    credentials: 'include',
-    headers: { 
-      'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  })
-    .then(res => getResponse(res))
-}
-
-export const getContent = () => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: {      
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(res => getResponse(res))
-};
-
 export const authorization = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
@@ -36,6 +14,17 @@ export const authorization = (email, password) => {
     headers: { 
       'Content-Type': 'application/json'
      },
+    body: JSON.stringify({ email, password })
+  })
+    .then(res => getResponse(res))
+}
+
+export const login = (email, password) => {
+  return fetch(`${BASE_URL}/signup`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 
+      'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
   })
     .then(res => getResponse(res))
@@ -50,4 +39,15 @@ export const logout = () => {
      },
   })
     .then(res => getResponse(res));
+};
+
+export const getContent = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: {      
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(res => getResponse(res))
 };
