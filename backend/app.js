@@ -27,8 +27,8 @@ app.get('/crash-test', () => {
   }, 0);
 });
 app.post('/signin', loginValidator, login);
-app.post('/signup', createUserValidator, createUser);
 app.get('/onlogout', logout);
+app.post('/signup', createUserValidator, createUser);
 app.use(auth);
 app.use(routes);
 app.use(errorLogger);
