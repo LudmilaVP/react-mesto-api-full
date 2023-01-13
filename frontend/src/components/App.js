@@ -125,28 +125,28 @@ function handleLogout() {
   }
 
 function handleCardLike(card) {
-  const isLiked = card.likes.some(i => i === currentUser._id);
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
   if (!isLiked){
   api.likePut(card.cardId)
       .then((newCard) => {
           setCards((state) => state.map(
-              (c) => c._id === card.cardId ? newCard : c))})
+              (c) => c._id === card._id ? newCard : c))})
       .catch((err) => {
           console.log (err);
       })} else {
   api.likeUnPut(card.cardId)
       .then((newCard) => {
           setCards((state) => state.map(
-          (c) => c._id === card.cardId ? newCard : c))})
+          (c) => c._id === card._id ? newCard : c))})
       .catch((err) => {
           console.log (err);
        })}
 } 
   const handleCardDelete = (card) => {
     api
-      .removeCard(card.cardId)
+      .removeCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card.cardId));
+        setCards((state) => state.filter((c) => c._id !== card._id));
       })
       .catch((err) => {
         console.log(err);

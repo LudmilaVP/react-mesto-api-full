@@ -26,9 +26,9 @@ app.get('/crash-test', () => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
+app.get('/onlogout', logout);
 app.post('/signin', loginValidator, login);
 app.post('/signup', createUserValidator, createUser);
-app.get('/onlogout', logout);
 app.use(auth);
 app.use(router);
 app.use(errorLogger);
