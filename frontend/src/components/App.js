@@ -51,8 +51,10 @@ const tokenCheck = () => {
     .catch((err) => console.log(err));
 }
 React.useEffect(() => {
-  tokenCheck();
-}, [loggedIn]);
+  if (!loggedIn) {
+    tokenCheck();
+  }
+}, []);
 
 function handleSignupSubmit(email, password) {
   auth.login(email, password)

@@ -16,8 +16,8 @@ class Api {
   getUserProfile() {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "GET",
-      credentials: 'include',
       headers: this.headers,
+      credentials: 'include',
     })
     .then(this._getResponse);
   }
