@@ -30,6 +30,49 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
+  function handleSignupSubmit(email, password) {
+    auth.login(email, password)
+      .then(result => {
+        if (result) {
+          setUserEmail(result.email);
+          setInfoTooltipOpen({ opened: true, success: true })
+          setLoggedIn(true);
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfoTooltipOpen({ opened: true, success: false })
+      })
+  }
+
+  function handleSigninSubmit(email, password) {
+    auth.authorization(email, password)
+      .then((res) => {
+        setUserEmail(email);
+        setLoggedIn(true);
+        history.push('/');
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfoTooltipOpen({ opened: true, success: false })
+      })
+  }
+
+  const tokenCheck = () => {
+    auth.getContent()
+      .then((res) => {
+        setLoggedIn(true);
+        setUserEmail(res.email);
+        history.push('/');
+      })
+      .catch((err) => console.log(err));
+  }
+
+  React.useEffect(() => {
+    tokenCheck();
+  }, [loggedIn]);
+
   React.useEffect(() => {
     api.getUserProfile()
         .then((res) => {
@@ -40,7 +83,6 @@ function App() {
           })
 }, [loggedIn])
 
-//Загрузка карточек первоначальная
 React.useEffect(() => {
     if (loggedIn){
     api.getInitialCards()
@@ -146,49 +188,6 @@ function handleCardLike(card) {
     history.push("/signin");
     setLoggedIn(false);
     setUserEmail("");
-  }
-
-  function handleSignupSubmit(email, password) {
-    auth.login(email, password)
-      .then(result => {
-        if (result) {
-          setUserEmail(result.email);
-          setInfoTooltipOpen({ opened: true, success: true })
-          setLoggedIn(true);
-          history.push('/');
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setInfoTooltipOpen({ opened: true, success: false })
-      })
-  }
-
-  const tokenCheck = () => {
-    auth.getContent()
-      .then((res) => {
-        setLoggedIn(true);
-        setUserEmail(res.email);
-        history.push('/');
-      })
-      .catch((err) => console.log(err));
-  }
-
-  React.useEffect(() => {
-    tokenCheck();
-  }, [loggedIn]);
-
-  function handleSigninSubmit(email, password) {
-    auth.authorization(email, password)
-      .then((res) => {
-        setUserEmail(email);
-        setLoggedIn(true);
-        history.push('/');
-      })
-      .catch((err) => {
-        console.log(err);
-        setInfoTooltipOpen({ opened: true, success: false })
-      })
   }
 
   return (
