@@ -54,12 +54,12 @@ React.useEffect(() => {
 }}, [loggedIn])
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i === currentUser._id);
+    const isLiked = card.likeUser.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card, !isLiked)
       .then((newCard) => {
         setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
+          state.map((c) => (c._id === card.cardId ? newCard : c))
         );
       })
       .catch((err) => {
@@ -69,9 +69,9 @@ React.useEffect(() => {
 
   const handleCardDelete = (card) => {
     api
-      .removeCard(card)
+      .removeCard(card.cardId)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id));
+        setCards((state) => state.filter((c) => c._id !== card.cardId));
       })
       .catch((err) => {
         console.log(err);
