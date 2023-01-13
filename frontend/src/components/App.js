@@ -85,7 +85,7 @@ function handleSigninSubmit(email, password) {
     .then((res) => {
       setUserEmail(email);
       setLoggedIn(true);
-      history.push('/signin');
+      history.push('/sign-in');
     })
     .catch((err) => {
       console.log(err);
@@ -95,7 +95,7 @@ function handleSigninSubmit(email, password) {
 
 function handleLogout() {
   auth.logout();
-  history.push("/signin");
+  history.push("/sign-in");
   setLoggedIn(false);
   setUserEmail("");
 }
@@ -209,20 +209,20 @@ function handleCardLike(card) {
             onCardDelete={handleCardDelete}
             cards={cards}
           />
-          <Route path="/signin">
+          <Route path="/sign-in">
             <Login
               onSignin={handleSigninSubmit}
             />
           </Route>
 
-          <Route path="/signup">
+          <Route path="/sign-up">
             <Register
               onSignup={handleSignupSubmit}
             />
           </Route>
 
           <Route exact path="*">
-            {loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
         </Switch>
         <Footer />

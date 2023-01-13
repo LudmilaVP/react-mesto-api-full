@@ -1,7 +1,9 @@
 class Api {
-  constructor({baseUrl, headers}) {
+  constructor({baseUrl}) {
     this.baseUrl = baseUrl;
-    this.headers = headers;
+    this.headers = {
+      "Content-Type": "application/json",
+    };;
   }
 
   _getResponse(res) {
