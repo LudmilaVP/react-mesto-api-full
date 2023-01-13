@@ -42,7 +42,7 @@ function App() {
   }, [loggedIn])
 
 const tokenCheck = () => {
-  api.getContent()
+  auth.getContent()
     .then((res) => {
       setLoggedIn(true);
       setUserEmail(res.email);
