@@ -196,7 +196,7 @@ function handleLogout() {
           />
           <Route path="/sign-in">
             <Login
-              onSignin={handleSigninSubmit}
+              onSignin={handleSigninSubmit} loggedIn={loggedIn}
             />
           </Route>
 
