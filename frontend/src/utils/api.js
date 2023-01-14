@@ -67,7 +67,7 @@ class Api {
       method: isLiked ? "PUT" : "DELETE",
       headers: this._headers,
       credentials: "include",
-    }).then(this._checkResult);
+    }).then(this._getResponse);
   }
 
   //Обновление аватара пользователя
