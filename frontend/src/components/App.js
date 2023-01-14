@@ -114,7 +114,7 @@ function handleLogout() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     api
       .changeLikeCardStatus(card, !isLiked)
       .then((newCard) => {

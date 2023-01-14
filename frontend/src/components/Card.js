@@ -8,19 +8,17 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const cardDeleteButtonClassName = (
     `element__delete ${isOwn ? 'element__delete_active' : ''}`
   );
-  const isLiked = card.likes.some((i) => i === currentUser._id); 
+  const isLiked = card.likes.some(i => i === currentUser._id); 
   const cardLikeButtonClassName = `element__like ${isLiked ? 'element__like_active' : ''}`;
 
   function handleClick() {
     onCardClick(card);
   }
   function handleLikeClick() {
-    console.log(card)
     onCardLike(card);
   }
 
   function handleDeleteClick() {
-    console.log(card)
     onCardDelete(card);
   }
   return (
