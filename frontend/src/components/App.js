@@ -82,11 +82,16 @@ React.useEffect(() => {
   }
 }, [loggedIn])
 
-function handleLogout() {
-  auth.logout();
-  history.push("/sign-in");
-  setLoggedIn(false);
-  setUserEmail("");
+const handleLogout = () => {
+  auth.logout()
+      .then(() =>  {            
+          setLoggedIn(false);
+          setUserEmail("");
+          history.push ('/');                
+      })             
+      .catch((err) => {
+          console.log(err)
+      })
 }
 
   function handleEditAvatarClick() {
