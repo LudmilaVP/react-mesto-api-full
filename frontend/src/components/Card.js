@@ -25,19 +25,19 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
     <div className="element">
       <div className="element__item">
         <img
-          src={card.link}
-          alt={card.name}
+          src={currentUser.link}
+          alt={currentUser.name}
           className="element__image"
           onClick={handleClick}
         />
         <div className="element__group">
-          <h3 className="element__title">{card.name}</h3>
+          <h3 className="element__title">{currentUser.name}</h3>
           <div className="element__group-like">
             <button
               className={cardLikeButtonClassName}
               type="button"
               onClick={handleLikeClick}></button>
-            <p className="element__like_counter">{card.likes.length}</p>
+            <p className="element__like_counter">{currentUser.likes.length}</p>
           </div>
         </div>
         <button
