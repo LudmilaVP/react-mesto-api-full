@@ -30,16 +30,33 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const history = useHistory();
 
-  React.useEffect(() => {
-    if (loggedIn) {
-      Promise.all([api.getInitialCards(), api.getUserProfile()])
-        .then(([initialCards, currentUserData]) => {
-          setCards(initialCards);
-          setCurrentUser(currentUserData);
-        })
-        .catch(err => console.log(err))
-    }
-  }, [loggedIn])
+  function handleSigninSubmit(email, password) {
+    auth.authorization(email, password)
+      .then((res) => {
+        setUserEmail(email);
+        setLoggedIn(true);
+        history.push('/sign-in');
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfoTooltipOpen({ opened: true, success: false })
+      })
+  }
+  function handleSignupSubmit(email, password) {
+    auth.login(email, password)
+      .then(result => {
+        if (result) {
+          setUserEmail(result.email);
+          setInfoTooltipOpen({ opened: true, success: true })
+          setLoggedIn(true);
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfoTooltipOpen({ opened: true, success: false })
+      })
+  }
 
 const tokenCheck = () => {
   auth.getContent()
@@ -56,34 +73,16 @@ React.useEffect(() => {
   }
 }, []);
 
-function handleSignupSubmit(email, password) {
-  auth.login(email, password)
-    .then(result => {
-      if (result) {
-        setUserEmail(result.email);
-        setInfoTooltipOpen({ opened: true, success: true })
-        setLoggedIn(true);
-        history.push('/');
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      setInfoTooltipOpen({ opened: true, success: false })
-    })
-}
-
-function handleSigninSubmit(email, password) {
-  auth.authorization(email, password)
-    .then((res) => {
-      setUserEmail(email);
-      setLoggedIn(true);
-      history.push('/sign-in');
-    })
-    .catch((err) => {
-      console.log(err);
-      setInfoTooltipOpen({ opened: true, success: false })
-    })
-}
+React.useEffect(() => {
+  if (loggedIn) {
+    Promise.all([api.getInitialCards(), api.getUserProfile()])
+      .then(([initialCards, currentUserData]) => {
+        setCards(initialCards);
+        setCurrentUser(currentUserData);
+      })
+      .catch(err => console.log(err))
+  }
+}, [loggedIn])
 
 function handleLogout() {
   auth.logout();
