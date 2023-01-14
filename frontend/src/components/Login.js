@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 function Login(props) {
     const [email, setEmail] = React.useState('');
@@ -17,8 +17,8 @@ function Login(props) {
         e.preventDefault();
         props.onSignin(email, password);
     }
-    
-    if(props.loggedIn) {
+
+    if (props.loggedIn) {
         return <Redirect to='/' />
     }
 

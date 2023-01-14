@@ -1,5 +1,5 @@
 class Api {
-  constructor({baseUrl}) {
+  constructor({ baseUrl }) {
     this.baseUrl = baseUrl;
     this.headers = {
       "Content-Type": "application/json",
@@ -16,10 +16,10 @@ class Api {
   getUserProfile() {
     return fetch(`${this.baseUrl}/users/me`, {
       method: "GET",
-      headers: this.headers,
       credentials: 'include',
+      headers: this.headers,
     })
-    .then(this._getResponse);
+      .then(this._getResponse);
   }
   //Загрузка карточек с сервера
   getInitialCards() {
@@ -71,7 +71,7 @@ class Api {
   }
 
   //Обновление аватара пользователя
-  updateUserAvatar({avatar}) {
+  updateUserAvatar({ avatar }) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       credentials: 'include',

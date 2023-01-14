@@ -58,41 +58,42 @@ function App() {
       })
   }
 
-const tokenCheck = () => {
-  api.getUserProfile()
-    .then((res) => {
-      setLoggedIn(true);
-      setUserEmail(res.email);
-      history.push('/');
-    })
-    .catch((err) => console.log(err));
-}
-React.useEffect(() => {
-    tokenCheck();
-}, [tokenCheck]);
-
-React.useEffect(() => {
-  if (loggedIn) {
-    Promise.all([api.getInitialCards(), api.getUserProfile()])
-      .then(([initialCards, currentUserData]) => {
-        setCards(initialCards);
-        setCurrentUser(currentUserData);
+  const tokenCheck = () => {
+    api.getUserProfile()
+      .then((res) => {
+        setLoggedIn(true);
+        setUserEmail(res.email);
+        history.push('/');
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   }
-}, [loggedIn])
 
-const handleLogout = () => {
-  auth.logout()
-      .then(() =>  {            
-          setLoggedIn(false);
-          setUserEmail("");
-          history.push ('/');                
-      })             
-      .catch((err) => {
-          console.log(err)
+  React.useEffect(() => {
+    tokenCheck();
+  }, [tokenCheck]);
+
+  React.useEffect(() => {
+    if (loggedIn) {
+      Promise.all([api.getInitialCards(), api.getUserProfile()])
+        .then(([initialCards, currentUserData]) => {
+          setCards(initialCards);
+          setCurrentUser(currentUserData);
+        })
+        .catch(err => console.log(err))
+    }
+  }, [loggedIn])
+
+  const handleLogout = () => {
+    auth.logout()
+      .then(() => {
+        setLoggedIn(false);
+        setUserEmail("");
+        history.push('/');
       })
-}
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
