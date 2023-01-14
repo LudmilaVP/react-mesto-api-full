@@ -5,18 +5,20 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   //const isOwn = card.owner === currentUser._id;
-  const cardDeleteButtonClassName = console.log(card); //(`element__delete ${isOwn ? 'element__delete_active' : ''}`);
+  const cardDeleteButtonClassName = 'element__delete'//${isOwn ? 'element__delete_active' : ''}`);
   //const isLiked = card.likes.some((i) => i === currentUser._id); 
-  const cardLikeButtonClassName = console.log(card);//`element__like ${isLiked ? 'element__like_active' : ''}`;
+  const cardLikeButtonClassName = 'element__like' //${isLiked ? 'element__like_active' : ''}`;
 
   function handleClick() {
     onCardClick(card);
   }
   function handleLikeClick() {
+    console.log(card)
     onCardLike(card);
   }
 
   function handleDeleteClick() {
+    console.log(card)
     onCardDelete(card);
   }
   return (
