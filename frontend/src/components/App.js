@@ -68,10 +68,8 @@ const tokenCheck = () => {
     .catch((err) => console.log(err));
 }
 React.useEffect(() => {
-  if (!loggedIn) {
     tokenCheck();
-  }
-}, []);
+}, [tokenCheck]);
 
 React.useEffect(() => {
   if (loggedIn) {
