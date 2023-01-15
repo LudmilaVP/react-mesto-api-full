@@ -6,3 +6,4 @@
 - IP 158.160.49.151
 - Frontend https://domainname.plv.nomoredomains.club/
 - Backend https://api.domainname.plv.nomoredomains.club/
+- Ссылка на репозиторий проекта: https://ludmilavp.github.io/react-mesto-api-full/
