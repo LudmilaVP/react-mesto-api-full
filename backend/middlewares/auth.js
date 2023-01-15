@@ -9,7 +9,7 @@ const auth = (req, res, next) => {
   try {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (e) {
-    next(new AuthError('Отказ в доступе'));
+    next(new AuthError('Передан неверный логин или пароль'));
   }
   req.user = payload;
   return next();

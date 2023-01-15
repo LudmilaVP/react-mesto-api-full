@@ -45,12 +45,12 @@ const getUser = (req, res, next) => {
 
   return User.findById(userId)
     .orFail(() => {
-      throw new NotFoundError('Не найден пользователь с указанным id');
+      throw new NotFoundError('Карточка или пользователь не найден');
     })
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'CastError') {
-        return next(new BadRequest('Переданы некорректные данные пользователя'));
+        return next(new BadRequest('Переданы некорректные данные'));
       }
       return next(err);
     });
@@ -72,10 +72,10 @@ const createUser = (req, res, next) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequest('Переданы некорректные данные пользователя'));
+        return next(new BadRequest('Переданы некорректные данные'));
       }
       if (err.code === 11000) {
-        return next(new ConflictError('Пользователь с таким email уже существует'));
+        return next(new ConflictError('При регистрации указан email, который уже существует на сервере'));
       }
       return next(err);
     });
@@ -88,12 +88,12 @@ const updateUser = (req, res, next) => {
     { name, about },
     { new: true, runValidators: true },
   ).orFail(() => {
-    throw new NotFoundError('Не найден пользователь с указанным id');
+    throw new NotFoundError('Карточка или пользователь не найден');
   })
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
-        next(new BadRequest('Переданы некорректные данные пользователя'));
+        next(new BadRequest('Переданы некорректные данные'));
       } else {
         next(err);
       }
@@ -108,12 +108,12 @@ const updateAvatar = (req, res, next) => {
     { avatar },
     { new: true, runValidators: true },
   ).orFail(() => {
-    throw new NotFoundError('Не найден пользователь с указанным id');
+    throw new NotFoundError('Карточка или пользователь не найден');
   })
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
-        next(new BadRequest('Переданы некорректные данные пользователя'));
+        next(new BadRequest('Переданы некорректные данные'));
       } else {
         next(err);
       }
@@ -123,7 +123,7 @@ const updateAvatar = (req, res, next) => {
 const getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(() => {
-      throw new NotFoundError('Пользователь не найден');
+      throw new NotFoundError('Карточка или пользователь не найден');
     })
     .then((user) => res.send(user))
     .catch((err) => {
