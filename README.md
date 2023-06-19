@@ -1,24 +1,24 @@
-#  Название проекта: Mesto 
+#  Mesto 
 
-## Описание
+## Description
 
-Сайт, на котором пользователь может редактировать интерактивную форму, вводить любое имя и профессию, менять аватар, добавлять картинки на сервер, удалять, лайкать.
+A website where the user can edit an interactive form, enter any name and profession, change the avatar, add pictures to the server, delete, like.
 
-## Стек
+## Stack
 
 - HTML
 - CSS
 - Javascript
 
-## Реализация
+## Implementation
 
-- Портирование проекта Mesto на «React».
-- HTML разметка портирована в JSX.
-- Портированы стили.
-- Для отображения карточек и данных профиля реализованы запросы к API.
+- Porting the Mesto project to "React".
+- HTML markup is ported to JSX.
+- Ported styles.
+- API requests are implemented to display cards and profile data.
 
-## Данные сайта и сервера
+## Site and server data
 
 - Frontend https://domainname.plv.nomoredomains.club/
 - Backend https://api.domainname.plv.nomoredomains.club/
-- Ссылка на репозиторий проекта: https://github.com/LudmilaVP/react-mesto-api-full
+- Link to the project repository: https://github.com/LudmilaVP/react-mesto-api-full
